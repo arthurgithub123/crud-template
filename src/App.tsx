@@ -6,27 +6,14 @@ import {
   SettingOutlined
 } from '@ant-design/icons';
 
-import { Form, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 const { Header, Content, Sider, Footer } = Layout;
 
 const App: React.FC = () => {
-  const [form]                    = Form.useForm();
-  const [spinLoad, setSpinLoad]   = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const mainRef                   = useRef<HTMLDivElement>(null);
   const footerRef                 = useRef<HTMLDivElement>(null);
-
-  const handleSubmit = (values: any) => {
-    console.log(values);
-
-    setSpinLoad(true);
-
-    setTimeout(() => {
-      setSpinLoad(false);
-      form.resetFields();
-    }, 1000);
-  };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -154,7 +141,7 @@ const App: React.FC = () => {
               marginRight: '16px',
               marginBottom: '10px',
               marginLeft: '216px'
-            }}> {/* style={{ margin: "16px 16px", background: "#fff", marginLeft: '200px', marginTop: '64px' }} */}
+            }}>
             <div style={{ padding: 24, minHeight: 360 }}>
               <span>some item</span>
               {Array.from({ length: 100 }, (_, index) => (

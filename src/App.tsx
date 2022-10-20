@@ -148,7 +148,7 @@ const App: React.FC = () => {
       </Sider>
       <Layout className="site-layout">
         <Content ref={mainRef} style={{ marginTop: '80px', marginRight: '16px', marginBottom: '10px', marginLeft: '216px' }}> {/* style={{ margin: "16px 16px", background: "#fff", marginLeft: '200px', marginTop: '64px' }} */}
-          <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
+          <div style={{ padding: 24, minHeight: 360 }}>
             <span>some item</span>
               {  Array.from({ length: 100 }, (_, index) => (
                   <span key={index}>

@@ -15,6 +15,7 @@ const App: React.FC = () => {
   const [spinLoad, setSpinLoad]   = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const mainRef                   = useRef<HTMLDivElement>(null);
+  const footerRef                 = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (values: any) => {
     console.log(values);
@@ -57,7 +58,7 @@ const App: React.FC = () => {
       <Sider
         collapsible
         onCollapse={() => {
-          if(mainRef.current) {
+          if(mainRef.current && footerRef.current) {
             let collapsedValue = !collapsed;
 
             if(collapsedValue) {
@@ -65,7 +66,9 @@ const App: React.FC = () => {
               mainRef.current.style.marginTop    = '80px';
               mainRef.current.style.marginRight  = '16px';
               mainRef.current.style.marginBottom = '10px';
-              mainRef.current.style.marginLeft   = '96px'
+              mainRef.current.style.marginLeft   = '96px';
+              footerRef.current.style.transition = 'margin 0.2s ease';
+              footerRef.current.style.marginLeft = '80px';
             }
             else {
               mainRef.current.style.transition   = 'margin 0.2s ease';
@@ -73,7 +76,10 @@ const App: React.FC = () => {
               mainRef.current.style.marginRight  = '16px';
               mainRef.current.style.marginBottom = '10px';
               mainRef.current.style.marginLeft   = '216px';
+              footerRef.current.style.transition = 'margin 0.2s ease';
+              footerRef.current.style.marginLeft = '200px';
             }
+
             setCollapsed(!collapsed);
           }
       }}
@@ -153,7 +159,7 @@ const App: React.FC = () => {
               }
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center', marginLeft: '200px' }}>Copyrights &copy; 2020 All Rights Reseverd by Company.</Footer>
+        <Footer ref={footerRef} style={{ textAlign: 'center', marginLeft: '200px' }}>Copyrights &copy; 2020 All Rights Reseverd by Company.</Footer>
       </Layout>
     </Layout>
     </Layout>

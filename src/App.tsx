@@ -57,19 +57,25 @@ const App: React.FC = () => {
       <Sider
         collapsible
         onCollapse={() => {
-          // if(mainRef.current) {
-          //   let collapsedValue = !collapsed;
-            
-          //   if(collapsedValue) {
-          //     mainRef.current.style.marginLeft = '';
-          //     mainRef.current.style.marginLeft = '96px transition: margin 0.5s ease';
-          //   }
-          //   else {
-          //     mainRef.current.style.margin = '';
-          //     mainRef.current.style.margin = '80px 16px 10px 216px transition: margin 0.5s ease;';              
-          //   }
-          //   setCollapsed(!collapsed);
-          // }
+          if(mainRef.current) {
+            let collapsedValue = !collapsed;
+
+            if(collapsedValue) {
+              mainRef.current.style.transition   = 'margin 0.2s ease';
+              mainRef.current.style.marginTop    = '80px';
+              mainRef.current.style.marginRight  = '16px';
+              mainRef.current.style.marginBottom = '10px';
+              mainRef.current.style.marginLeft   = '96px'
+            }
+            else {
+              mainRef.current.style.transition   = 'margin 0.2s ease';
+              mainRef.current.style.marginTop    = '80px';
+              mainRef.current.style.marginRight  = '16px';
+              mainRef.current.style.marginBottom = '10px';
+              mainRef.current.style.marginLeft   = '216px';
+            }
+            setCollapsed(!collapsed);
+          }
       }}
         style={{
           height: '83vh',
@@ -135,7 +141,7 @@ const App: React.FC = () => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Content ref={mainRef} style={{ margin: "16px 16px", background: "#fff", marginLeft: '200px', marginTop: '64px' }}>
+        <Content ref={mainRef} style={{ marginTop: '80px', marginRight: '16px', marginBottom: '10px', marginLeft: '216px' }}> {/* style={{ margin: "16px 16px", background: "#fff", marginLeft: '200px', marginTop: '64px' }} */}
           <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
             <span>some item</span>
               {  Array.from({ length: 100 }, (_, index) => (

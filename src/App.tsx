@@ -50,7 +50,7 @@ const data: DataType[] = [
     lastName: 'Brown',
     age: 32,
     address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
+    tags: ['ótimo', 'desenvolvedor'],
   },
   {
     key: '2',
@@ -58,7 +58,7 @@ const data: DataType[] = [
     lastName: 'Green',
     age: 42,
     address: 'London No. 1 Lake Park',
-    tags: ['loser'],
+    tags: ['professor'],
   },
   {
     key: '3',
@@ -66,7 +66,7 @@ const data: DataType[] = [
     lastName: 'Black',
     age: 32,
     address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
+    tags: ['desenvolvedor'],
   },
 ];
 
@@ -79,17 +79,19 @@ const App: React.FC = () => {
 
   const handleDelete = (id: string) => {
     Modal.confirm({
-      title: 'Aceitar post?',
+      title: 'Excluir Usuário?',
+      cancelText: 'Cancelar',
+      okText: 'Excluir',
       onOk() {
         setTimeout(() =>
           notification['success']({
-            message: 'Usuário excluído',
+            message: 'Usuário Excluído',
             duration: 3
           })
         , 1000);
 
         setTimeout(() =>
-          Modal.error({ title: 'Erro', maskClosable: true, centered: true, content: 'Internal Server Error' })
+          Modal.error({ title: 'Erro', maskClosable: true, centered: true, content: 'Erro Interno No Servidor' })
         , 1000)
       }
     });  
@@ -248,10 +250,10 @@ const App: React.FC = () => {
                     <div className="site-card-border-less-wrapper">
                       <Card title="Cadastro de Usuários" bordered={false} style={{ minWidth: 150 }}>
                         <Form layout="vertical" form={form} onFinish={handleSubmit}>
-                          <Item label="First Name" name="firstName" rules={[ { min: 6, message: 'Min of 6 characters Required' }, { required: true, message: 'First Name Required' } ]}>
+                          <Item label="Primeiro Nome" name="firstName" rules={[ { min: 6, message: 'Min of 6 characters Required' }, { required: true, message: 'First Name Required' } ]}>
                             <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="First Name" />
                           </Item>
-                          <Item label="Last Name" name="lastName" rules={[ { min: 6, message: 'Min of 6 characters Required' }, { required: true, message: 'Last Name Required' }]}>
+                          <Item label="Sobrenome" name="lastName" rules={[ { min: 6, message: 'Min of 6 characters Required' }, { required: true, message: 'Last Name Required' }]}>
                             <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Last Name" />
                           </Item>
                           <Item>
@@ -266,12 +268,12 @@ const App: React.FC = () => {
                   <div className="site-card-border-less-wrapper">
                     <Card title="Listagem de Usuários" bordered={false} style={{ minWidth: 150 }}>
                       <Table dataSource={data} scroll={{ x: 1 }}>
-                        <ColumnGroup title="Name">
-                          <Column title="First Name" dataIndex="firstName" key="firstName" />
-                          <Column title="Last Name" dataIndex="lastName" key="lastName" />
+                        <ColumnGroup title="Nome">
+                          <Column title="Primeiro Nome" dataIndex="firstName" key="firstName" />
+                          <Column title="Sobrenome" dataIndex="lastName" key="lastName" />
                         </ColumnGroup>
-                        <Column title="Age" dataIndex="age" key="age" />
-                        <Column title="Address" dataIndex="address" key="address" />
+                        <Column title="Idade" dataIndex="age" key="age" />
+                        <Column title="Endereço" dataIndex="address" key="address" />
                         <Column
                           title="Tags"
                           dataIndex="tags"
@@ -289,12 +291,12 @@ const App: React.FC = () => {
                           )}
                         />
                         <Column
-                          title="Action"
+                          title="Ações"
                           key="action"
                           render={(_: any, record: DataType) => (
                             <Space size="middle">
-                              <a>Invite {record.lastName}</a>
-                              <a onClick={() => handleDelete('id')}>Delete</a>
+                              <a>Convidar {record.lastName}</a>
+                              <a onClick={() => handleDelete('id')}>Excluir</a>
                             </Space>
                           )}
                         />

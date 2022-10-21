@@ -8,8 +8,6 @@ import {
 
 } from '@ant-design/icons';
 
-import { Layout, Menu } from 'antd';
-import SubMenu from 'antd/lib/menu/SubMenu';
 import {
   Button,
   Card,
@@ -115,26 +113,10 @@ const App: React.FC = () => {
           position: 'fixed',
           top: 0,
           left: 0,
-          right: 0
           right: 0,
           display: 'flex'
         }}
       >
-        <div className="logo" />
-        <Menu mode="horizontal" theme="dark" className="flex-setting">
-          <Menu.Item>Home</Menu.Item>
-          <Menu.Item>Contact</Menu.Item>
-          <Menu.Item>About</Menu.Item>
-          <SubMenu icon={<SettingOutlined />} title="Settings">
-            <Menu.ItemGroup title="Basic Settings">
-              <Menu.Item key="setting:2">
-                <a href={"/sessions/logout/"} target="_self">
-                  Signout
-                </a>
-              </Menu.Item>
-            </Menu.ItemGroup>
-          </SubMenu>
-        </Menu>
         <div className="logo"
           style={{
             width: '201px',

@@ -8,7 +8,12 @@ import {
 
 import { Layout, Menu } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
+  MenuProps,
 const { Header, Content, Sider, Footer } = Layout;
+const items1: MenuProps['items'] = ['1', '2', '3'].map(key => ({
+  key,
+  label: `nav ${key}`,
+}));
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -23,6 +28,8 @@ const App: React.FC = () => {
           top: 0,
           left: 0,
           right: 0
+          right: 0,
+          display: 'flex'
         }}
       >
         <div className="logo" />
@@ -40,6 +47,26 @@ const App: React.FC = () => {
             </Menu.ItemGroup>
           </SubMenu>
         </Menu>
+        <div className="logo"
+          style={{
+            width: '201px',
+            height: '64px',
+            marginTop: '-2px',            
+            marginLeft: '-50px',
+            marginRight: '40px',
+            color: 'white',
+          }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1666205529095-ec35b4b9dfd0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+            alt="logo"
+            style={{
+              width: '100%',
+              height: '100%'
+            }}
+          />
+        </div>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
       </Header>
       <Layout>
         <Sider

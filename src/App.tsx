@@ -3,24 +3,110 @@ import React, { useState, useRef } from 'react';
 
 import {
   PieChartOutlined,
-  SettingOutlined
+  LoadingOutlined,
+  UserOutlined,
+
 } from '@ant-design/icons';
 
 import { Layout, Menu } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import {
+  Button,
+  Card,
+  Col,
+  Form,
+  Input,
+  Layout,
+  Menu,
   MenuProps,
+  Row,
+  Spin,
+  Space,
+  Table,
+  Tag,
+  Modal,
+  notification
 } from 'antd';
 const { Header, Content, Sider, Footer } = Layout;
+const { Item } = Form;
+const { Column, ColumnGroup } = Table;
+
 const items1: MenuProps['items'] = ['1', '2', '3'].map(key => ({
   key,
   label: `nav ${key}`,
 }));
 
+interface DataType {
+  key: React.Key;
+  firstName: string;
+  lastName: string;
+  age: number;
+  address: string;
+  tags: string[];
+}
+
+const data: DataType[] = [
+  {
+    key: '1',
+    firstName: 'John',
+    lastName: 'Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+    tags: ['nice', 'developer'],
+  },
+  {
+    key: '2',
+    firstName: 'Jim',
+    lastName: 'Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+    tags: ['loser'],
+  },
+  {
+    key: '3',
+    firstName: 'Joe',
+    lastName: 'Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher'],
+  },
+];
+
 const App: React.FC = () => {
+  const [form]                    = Form.useForm();
+  const [spinLoad, setSpinLoad]   = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const mainRef                   = useRef<HTMLDivElement>(null);
   const footerRef                 = useRef<HTMLDivElement>(null);
+
+  const handleDelete = (id: string) => {
+    Modal.confirm({
+      title: 'Aceitar post?',
+      onOk() {
+        setTimeout(() =>
+          notification['success']({
+            message: 'Usuário excluído',
+            duration: 3
+          })
+        , 1000);
+
+        setTimeout(() =>
+          Modal.error({ title: 'Erro', maskClosable: true, centered: true, content: 'Internal Server Error' })
+        , 1000)
+      }
+    });  
+  };
+
+  const handleSubmit = (values: any) => {
+    console.log(values);
+
+    setSpinLoad(true);
+
+    setTimeout(() => {
+      setSpinLoad(false);
+      form.resetFields();
+    }, 1000);
+  };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -171,15 +257,70 @@ const App: React.FC = () => {
               marginBottom: '10px',
               marginLeft: '216px'
             }}>
-            <div style={{ padding: 24, minHeight: 360 }}>
-              <span>some item</span>
-              {Array.from({ length: 100 }, (_, index) => (
-                <span key={index}>
-                  {index % 20 === 0 && index ? 'more' : '...'}
-                  <br />
-                </span>
-              ))
-              }
+
+            <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
+
+              <Row justify="center" align="middle" gutter={[25, 25]}>
+                <Col xs={24} sm={18}>
+                  <Spin tip="Carregando..." size="large" indicator={<LoadingOutlined spin />} spinning={spinLoad}>
+                    <div className="site-card-border-less-wrapper">
+                      <Card title="Cadastro de Usuários" bordered={false} style={{ minWidth: 150 }}>
+                        <Form layout="vertical" form={form} onFinish={handleSubmit}>
+                          <Item label="First Name" name="firstName" rules={[ { min: 6, message: 'Min of 6 characters Required' }, { required: true, message: 'First Name Required' } ]}>
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="First Name" />
+                          </Item>
+                          <Item label="Last Name" name="lastName" rules={[ { min: 6, message: 'Min of 6 characters Required' }, { required: true, message: 'Last Name Required' }]}>
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Last Name" />
+                          </Item>
+                          <Item>
+                            <Button type="primary" htmlType="submit">Submit</Button>
+                          </Item>
+                        </Form>
+                      </Card>
+                    </div>
+                  </Spin>
+                </Col>
+                <Col xs={24} sm={18}>
+                  <div className="site-card-border-less-wrapper">
+                    <Card title="Listagem de Usuários" bordered={false} style={{ minWidth: 150 }}>
+                      <Table dataSource={data} scroll={{ x: 1 }}>
+                        <ColumnGroup title="Name">
+                          <Column title="First Name" dataIndex="firstName" key="firstName" />
+                          <Column title="Last Name" dataIndex="lastName" key="lastName" />
+                        </ColumnGroup>
+                        <Column title="Age" dataIndex="age" key="age" />
+                        <Column title="Address" dataIndex="address" key="address" />
+                        <Column
+                          title="Tags"
+                          dataIndex="tags"
+                          key="tags"
+                          render={(tags: string[]) => (
+                            <>
+                              {
+                                tags.map(tag => (
+                                  <Tag color="blue" key={tag}>
+                                    {tag}
+                                  </Tag>
+                                ))
+                              }
+                            </>
+                          )}
+                        />
+                        <Column
+                          title="Action"
+                          key="action"
+                          render={(_: any, record: DataType) => (
+                            <Space size="middle">
+                              <a>Invite {record.lastName}</a>
+                              <a onClick={() => handleDelete('id')}>Delete</a>
+                            </Space>
+                          )}
+                        />
+                      </Table>
+                    </Card>
+                  </div>
+                </Col>
+              </Row>
             </div>
           </Content>
           <Footer

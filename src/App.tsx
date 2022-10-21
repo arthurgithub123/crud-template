@@ -8,7 +8,9 @@ import {
 
 import { Layout, Menu } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
+import {
   MenuProps,
+} from 'antd';
 const { Header, Content, Sider, Footer } = Layout;
 const items1: MenuProps['items'] = ['1', '2', '3'].map(key => ({
   key,
